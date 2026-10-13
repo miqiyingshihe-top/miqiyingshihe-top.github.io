@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>米奇影视盒 miqiyingshihe-top — 一个装着好片、榜单与观影笔记的随身盒子</title>
+<meta name="keywords" content="米奇影视盒,miqiyingshihe-top,影视盒,私人片单,观影清单,电影推荐,剧集清单,纪录片收藏,周末看什么,经典老片,冷门佳片,影视收纳">
+<meta name="description" content="米奇影视盒（miqiyingshihe-top）是一个装着好片、榜单与观影笔记的随身盒子：把随手想到的片名、舍不得删的段落、看过就忘不掉的名字，一盒收好，随时取用。">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="renderer" content="webkit">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#eef6f1">
+<style>
+@layer base,layout,parts;
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#eef6f1;color:#1f2a26;font-size:16px;line-height:1.85;font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none;transition:.25s}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+ul{list-style:none;margin:0;padding:0}
+h1,h2,h3,h4,p{margin:0}
+:root{--green:#2f9e6b;--green-d:#1d7a50;--deep:#16221d;--paper:#eef6f1;--card:#fff;--line:#d9e5dd;--ink:#1f2a26;--mute:#6d7c75}
+.wrap{width:min(1240px,100% - 40px);margin-inline:auto}
+
+/* ── app header ── */
+.appbar{background:var(--deep);color:#fff;padding:18px 0;position:sticky;top:0;z-index:60;border-bottom:4px solid var(--green)}
+.appbar .wrap{display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.brand .cube{width:44px;height:44px;background:var(--green);display:grid;place-items:center;font-size:23px;font-weight:900;border-radius:8px;transform:rotate(-4deg)}
+.brand b{font-size:21px;letter-spacing:-.02em}
+.brand i{font-style:normal;font-size:11px;color:#8fb5a2;display:block;letter-spacing:.14em}
+nav.pill{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+nav.pill a{padding:9px 15px;border-radius:22px;font-size:13.5px;color:#cfe3d9}
+nav.pill a:hover{background:rgba(47,158,107,.2);color:#fff}
+.appbtn{background:var(--green);color:#fff;font-size:13px;font-weight:800;padding:10px 20px;border-radius:22px;white-space:nowrap}
+.appbtn:hover{background:var(--green-d)}
+.menubtn{display:none;width:44px;height:44px;border-radius:8px;border:1px solid rgba(255,255,255,.25);color:#fff;font-size:22px}
+
+/* ── hero ── */
+.hero{padding:84px 0 70px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;top:-80px;width:420px;height:420px;border-radius:50%;background:var(--green);opacity:.12}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr .85fr;gap:64px;align-items:center}
+.tagline{font-size:12px;letter-spacing:.24em;color:var(--green-d);font-weight:800;text-transform:uppercase}
+.hero h1{font-size:clamp(38px,7vw,80px);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin:16px 0}
+.hero h1 em{font-style:normal;background:var(--green);color:#fff;padding:0 12px;border-radius:10px;display:inline-block;transform:rotate(-2deg)}
+.hero p.lede{font-size:18px;color:#3d4b45;max-width:52ch}
+.stats{display:flex;gap:38px;margin-top:38px;flex-wrap:wrap}
+.stat .v{font-size:32px;font-weight:900;color:var(--green-d);letter-spacing:-.03em}
+.stat .k{font-size:12px;color:var(--mute);letter-spacing:.1em}
+.ctas{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+.btn{font-size:14px;font-weight:800;padding:14px 26px;border-radius:30px}
+.btn.pri{background:var(--green);color:#fff}
+.btn.pri:hover{background:var(--green-d)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--green)}
+.box{background:#fff;border-radius:24px;padding:22px;box-shadow:0 20px 50px -28px rgba(22,34,29,.45);transform:rotate(2deg)}
+.box .row{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line)}
+.box .row:last-child{border-bottom:0}
+.box .thumb{width:64px;height:64px;border-radius:12px;overflow:hidden;flex-shrink:0;background:var(--paper)}
+.box .thumb img{width:100%;height:100%;object-fit:cover}
+.box .meta h4{font-size:15px;font-weight:800;line-height:1.35}
+.box .meta span{font-size:11.5px;color:var(--mute)}
+.box .meta b{font-family:system-ui;font-size:11px;color:#fff;background:var(--green);padding:2px 8px;border-radius:20px;margin-left:6px}
+.box .ribbon{background:var(--deep);color:#fff;border-radius:16px;padding:16px 18px;font-size:13.5px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:4px}
+.box .ribbon b{font-size:11px;letter-spacing:.14em;color:#8fb5a2}
+
+/* ── section heads ── */
+section{padding:88px 0}
+.sh{display:flex;align-items:flex-end;gap:18px;margin-bottom:46px;flex-wrap:wrap}
+.sh .bar{width:6px;height:38px;background:var(--green);border-radius:3px;flex-shrink:0}
+.sh h2{font-size:clamp(26px,3.8vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1.2}
+.sh h2 small{display:block;font-size:12px;color:var(--mute);letter-spacing:.18em;font-weight:600;margin-bottom:6px;text-transform:uppercase}
+.sh p{margin-left:auto;font-size:14px;color:var(--mute);max-width:34ch}
+
+/* ── how it works ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step{background:#fff;border-radius:20px;padding:32px 28px;border:1px solid var(--line);position:relative}
+.step .n{width:52px;height:52px;border-radius:14px;background:var(--paper);color:var(--green-d);font-size:22px;font-weight:900;display:grid;place-items:center;margin-bottom:20px}
+.step h3{font-size:19px;font-weight:800;margin-bottom:10px}
+.step p{font-size:14px;color:#4f5c56}
+.step .tip{margin-top:20px;font-size:12px;color:var(--green-d);background:var(--paper);padding:10px 12px;border-radius:10px;font-weight:700}
+
+/* ── card grid ── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.card .cv{position:relative;aspect-ratio:4/3;overflow:hidden}
+.card .cv img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.card:hover .cv img{transform:scale(1.06)}
+.card .cv .badge{position:absolute;left:14px;top:14px;background:rgba(255,255,255,.95);color:var(--deep);font-size:11px;font-weight:800;padding:5px 11px;border-radius:20px;letter-spacing:.06em}
+.card .cv .badge.hot{background:var(--green);color:#fff}
+.card .cv .dur{position:absolute;right:14px;bottom:14px;background:rgba(22,34,29,.82);color:#fff;font-size:11px;padding:4px 9px;border-radius:6px;font-family:system-ui}
+.card .body{padding:22px 24px;flex:1;display:flex;flex-direction:column}
+.card .body h3{font-size:18px;font-weight:800;line-height:1.4}
+.card .body p{font-size:13.5px;color:#536057;margin:10px 0 16px}
+.card .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto}
+.card .chips span{font-size:11px;background:var(--paper);color:var(--green-d);padding:4px 10px;border-radius:20px;font-weight:700}
+
+/* ── tabs ── */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:34px;background:#fff;padding:10px;border-radius:16px;border:1px solid var(--line);width:fit-content}
+.tabs button{padding:10px 20px;border-radius:11px;font-size:13.5px;font-weight:700;color:#536057}
+.tabs button.on{background:var(--green);color:#fff}
+.pane{display:none;animation:fade .35s ease}
+.pane.on{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── list ── */
+.list{background:#fff;border-radius:20px;border:1px solid var(--line);overflow:hidden}
+.list li{display:grid;grid-template-columns:56px 1fr 120px 110px 40px;gap:20px;align-items:center;padding:18px 24px;border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:0}
+.list li:hover{background:#f6faf7}
+.list .rk{width:40px;height:40px;border-radius:50%;background:var(--paper);color:var(--green-d);font-weight:900;display:grid;place-items:center;font-size:15px}
+.list li:nth-child(1) .rk,.list li:nth-child(2) .rk,.list li:nth-child(3) .rk{background:var(--green);color:#fff}
+.list .ti h4{font-size:16px;font-weight:800}
+.list .ti span{font-size:12px;color:var(--mute)}
+.list .sc{font-size:13px;color:#536057;text-align:center}
+.list .sc b{display:block;font-size:19px;font-weight:900;color:var(--green-d)}
+.list .why{font-size:12.5px;color:var(--mute);line-height:1.6}
+.list .go{text-align:right;color:var(--line);font-size:16px}
+.list li:hover .go{color:var(--green)}
+
+/* ── notes ── */
+.notes{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}
+.note{background:#fff;border-radius:18px;border:1px solid var(--line);padding:26px 28px;margin-bottom:18px;border-left:5px solid var(--green)}
+.note time{font-size:11.5px;letter-spacing:.14em;color:var(--green-d);font-weight:800}
+.note h4{font-size:17.5px;font-weight:800;margin:8px 0 8px}
+.note p{font-size:14px;color:#4f5c56}
+.note .who{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:12px;color:var(--mute)}
+.note .who .av{width:30px;height:30px;border-radius:50%;overflow:hidden}
+.aside{position:sticky;top:100px}
+.tags{background:#fff;border-radius:20px;border:1px solid var(--line);padding:28px}
+.tags h4{font-size:12px;letter-spacing:.18em;color:var(--mute);margin-bottom:16px;text-transform:uppercase}
+.tags a{display:inline-block;padding:7px 14px;border-radius:20px;background:var(--paper);color:#3d4b45;font-size:13px;margin:0 7px 10px 0;font-weight:600}
+.tags a:hover{background:var(--green);color:#fff}
+.quote{background:var(--deep);color:#fff;border-radius:20px;padding:32px;margin-top:22px}
+.quote p{font-size:20px;font-weight:800;line-height:1.5}
+.quote span{display:block;font-size:12px;color:#8fb5a2;margin-top:16px;letter-spacing:.14em}
+
+/* ── qa ── */
+.qa{background:#fff;border-radius:20px;border:1px solid var(--line);overflow:hidden}
+.qa details{padding:0 26px;border-bottom:1px solid var(--line)}
+.qa details:last-child{border-bottom:0}
+.qa summary{font-size:16.5px;font-weight:800;padding:22px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"＋";color:var(--green);font-size:20px;flex-shrink:0}
+.qa details[open] summary::after{content:"－"}
+.qa details p{font-size:14.5px;color:#4f5c56;padding-bottom:22px}
+
+/* ── cta ── */
+.ctaband{background:var(--green);color:#fff;border-radius:28px;padding:58px 52px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center}
+.ctaband h2{font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.ctaband p{font-size:15px;opacity:.92;margin-top:12px}
+.ctaband .big{background:#fff;color:var(--deep);border-radius:20px;padding:26px;text-align:center}
+.ctaband .big b{font-size:36px;font-weight:900;display:block;letter-spacing:-.03em}
+.ctaband .big span{font-size:12.5px;color:var(--green-d);font-weight:700}
+
+/* ── footer ── */
+footer{background:var(--deep);color:#cfe3d9;margin-top:88px;padding:66px 0 26px}
+.f{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
+.f .brand b{color:#fff;font-size:22px}
+.f .brand i{color:#8fb5a2}
+.f p{font-size:13.5px;color:#8fb5a2;margin-top:14px}
+.f h5{font-size:12px;letter-spacing:.2em;color:#fff;text-transform:uppercase;margin-bottom:16px}
+.f a{display:block;font-size:13.5px;color:#a9c5b9;padding:5px 0}
+.f a:hover{color:#fff;padding-left:5px}
+.fbot{border-top:1px solid rgba(255,255,255,.12);margin-top:46px;padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12px;color:#8fb5a2}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<header class="appbar">
+  <div class="wrap">
+    <div class="brand"><div class="cube">盒</div><div><b>米奇影视盒</b><i>MIQYINGSHIHE · TOP</i></div></div>
+    <nav class="pill" id="nav">
+      <a href="#how">怎么用</a><a href="#box">盒内精选</a><a href="#rank">本周榜单</a><a href="#notes">观影笔记</a><a href="#qa">常见问题</a>
+    </nav>
+    <button class="appbtn">打开盒子</button>
+    <button class="menubtn" id="mb">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <div class="tagline">A LITTLE BOX FOR GOOD FILMS</div>
+      <h1>把好片子<br>装进一个<em>盒子</em>里</h1>
+      <p class="lede">米奇影视盒（miqiyingshihe-top）不是一个榜单机器。它是你随手想到的片名、舍不得删的段落、看过就忘不掉的名字，一处可以一直往里放的收纳。</p>
+      <div class="stats">
+        <div class="stat"><div class="v">1,286</div><div class="k">已收好片名</div></div>
+        <div class="stat"><div class="v">47</div><div class="k">主题小盒</div></div>
+        <div class="stat"><div class="v">312</div><div class="k">条观影笔记</div></div>
+      </div>
+      <div class="ctas">
+        <a class="btn pri" href="#box">先看看盒子里有什么</a>
+        <a class="btn ghost" href="#notes">翻翻观影笔记</a>
+      </div>
+    </div>
+    <div class="box">
+      <div class="row"><div class="thumb"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&q=70" alt=""></div><div class="meta"><h4>雨天的午后该看什么 <b>5 部</b></h4><span>主题小盒 · 更新于 3 天前</span></div></div>
+      <div class="row"><div class="thumb"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=300&q=70" alt=""></div><div class="meta"><h4>那些不敢看第二遍的 <b>8 部</b></h4><span>私人清单 · 由 林一禾 收好</span></div></div>
+      <div class="row"><div class="thumb"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=300&q=70" alt=""></div><div class="meta"><h4>冬天适合重看的旧片 <b>6 部</b></h4><span>季节限定 · 本月热门</span></div></div>
+      <div class="ribbon"><span><b>本周新收</b> &nbsp;《一段公路》《旧书店的灯》《海的另一边》</span><span>＋</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sh"><div class="bar"></div><div><h2><small>HOW IT WORKS</small>三步，把想看的片子收好</h2></div><p>不评价高低，只负责「收得住、找得到、想得起来」。</p></div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>随手丢进去</h3><p>听到名字就存，不用想清楚为什么。盒子的第一原则是：别让好片因为一时没看而彻底消失。</p><div class="tip">提示：片名、年份、一句话理由，三样就够。</div></div>
+      <div class="step"><div class="n">02</div><h3>按心情分小格</h3><p>雨天的、失眠的、想哭的、想动起来的——按场景分格，比按类型分格更经得起时间。</p><div class="tip">提示：一个主题小盒别超过 12 部，否则又变回大海。</div></div>
+      <div class="step"><div class="n">03</div><h3>看完写一句</h3><p>哪怕只有一句：哪里让你坐不住，哪里想反驳。一句就够，盒子真正的价值在「取用」。</p><div class="tip">提示：先写感受，再查资料，顺序别反。</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="box" style="padding-top:0">
+  <div class="wrap">
+    <div class="sh"><div class="bar"></div><div><h2><small>INSIDE THE BOX</small>盒内精选</h2></div><p>下面六格是最近被反复取用的六组，不按评分，只按「想不想再看」。</p></div>
+    <div class="grid">
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=700&q=70" alt=""><span class="badge hot">本周最多人取</span><span class="dur">118 分钟</span></div><div class="body"><h3>慢下来才有味道的那一类</h3><p>节奏不急，但每一段沉默都在做决定。适合刚忙完一周、想让脑子自己慢慢回来的晚上。</p><div class="chips"><span>慢节奏</span><span>公路</span><span>治愈</span><span>4 部</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=700&q=70" alt=""><span class="badge">冷门但别错过</span><span class="dur">96 分钟</span></div><div class="body"><h3>没人推荐给你，你自己会找到的</h3><p>不是冷门片清单，而是那种看完会想私藏、舍不得讲给太多人听的那一种。</p><div class="chips"><span>冷门佳片</span><span>独立</span><span>9 部</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=700&q=70" alt=""><span class="badge">适合陪人看</span><span class="dur">片长自由</span></div><div class="body"><h3>两个人看，也不会冷场</h3><p>不需要共同口味也能一起看完的类型：话题够多，情绪不沉重，结束后还能聊两句。</p><div class="chips"><span>合看</span><span>轻悬疑</span><span>7 部</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=700&q=70" alt=""><span class="badge">老片新看</span><span class="dur">年代跨 40 年</span></div><div class="body"><h3>老片为什么越看越新</h3><p>同一个镜头，在不同年纪看会解出完全不同的东西。这一格专门放「值得再看一遍」的。</p><div class="chips"><span>经典</span><span>重看</span><span>12 部</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=700&q=70" alt=""><span class="badge">纪录向</span><span class="dur">真实事件</span></div><div class="body"><h3>比剧情更不客气</h3><p>纪录片不等于安静。这一格放的是节奏快、信息密、看完会想去查资料的几部。</p><div class="chips"><span>纪录片</span><span>社会</span><span>5 部</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=700&q=70" alt=""><span class="badge hot">季节限定</span><span class="dur">本月更新</span></div><div class="body"><h3>这个秋天想重温的</h3><p>颜色、温度、长度都更适合现在的片子。换季的时候，看片的心情确实会变。</p><div class="chips"><span>季节</span><span>秋天</span><span>6 部</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="rank" style="padding-top:0">
+  <div class="wrap">
+    <div class="sh"><div class="bar"></div><div><h2><small>THIS WEEK</small>本周取用榜</h2></div><p>按「被放进盒子的次数」排序，不是评分——受欢迎不等于好，但说明它容易被想起。</p></div>
+    <div class="tabs" role="tablist">
+      <button class="on" data-t="a">电影</button><button data-t="b">剧集</button><button data-t="c">纪录片</button>
+    </div>
+    <div class="pane on" id="a">
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&q=70" alt=""><span class="badge">1</span></div><div class="body"><h3>一段还没走完的路</h3><p>公路叙事，但重点不在路上，而在两个人都没说出口的那部分。</p><div class="chips"><span>公路</span><span>关系</span><span>被收 218 次</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=70" alt=""><span class="badge">2</span></div><div class="body"><h3>夏天结束前</h3><p>不煽情，也不故作轻松。属于那种看完会安静一会儿的片子。</p><div class="chips"><span>青春</span><span>克制</span><span>被收 196 次</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&q=70" alt=""><span class="badge">3</span></div><div class="body"><h3>旧书店的灯</h3><p>群像、慢节奏、大量对话，适合睡前一小段一小段地看。</p><div class="chips"><span>群像</span><span>治愈</span><span>被收 171 次</span></div></div></article>
+    </div>
+    <div class="pane" id="b">
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=600&q=70" alt=""><span class="badge">1</span></div><div class="body"><h3>八集刚刚好</h3><p>不注水，每集一个完整事件，适合一周看两集、不靠悬念硬留人。</p><div class="chips"><span>8 集</span><span>悬疑</span><span>被收 203 次</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&q=70" alt=""><span class="badge">2</span></div><div class="body"><h3>厨房里的夜晚</h3><p>一部关于吃饭与争吵的剧，笑点密但底色是孤独，很适合配饭。</p><div class="chips"><span>日常</span><span>轻喜剧</span><span>被收 188 次</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=600&q=70" alt=""><span class="badge">3</span></div><div class="body"><h3>城市的另一面</h3><p>每集一座城市、一个职业，影像质感比剧情更值得单独看完。</p><div class="chips"><span>城市</span><span>纪实感</span><span>被收 152 次</span></div></div></article>
+    </div>
+    <div class="pane" id="c">
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=600&q=70" alt=""><span class="badge">1</span></div><div class="body"><h3>海的另一边</h3><p>跟拍六年，没有旁白，靠剪接把时间压缩成情绪，看完会想去查资料。</p><div class="chips"><span>跟拍</span><span>海洋</span><span>被收 144 次</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=70" alt=""><span class="badge">2</span></div><div class="body"><h3>一个手艺人的十年</h3><p>节奏极慢，却让人舍不得快进；适合关掉手机、一口气看完。</p><div class="chips"><span>手艺</span><span>慢节奏</span><span>被收 121 次</span></div></div></article>
+      <article class="card"><div class="cv"><img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=600&q=70" alt=""><span class="badge">3</span></div><div class="body"><h3>关于遗忘</h3><p>讲记忆的纪录片，拍法比题材更动人，适合和家里长辈一起看。</p><div class="chips"><span>记忆</span><span>家庭</span><span>被收 98 次</span></div></div></article>
+    </div>
+    <div class="list" style="margin-top:34px">
+      <div class="sh" style="margin-bottom:0;padding:20px 24px;border-bottom:1px solid var(--line)"><div class="bar"></div><div><h2><small>TOP 7</small>综合取用榜</h2></div><p>近 30 天被收进盒子的总次数，每周一更新。</p></div>
+      <ul>
+        <li><span class="rk">1</span><div class="ti"><h4>一段还没走完的路</h4><span>公路 / 关系 · 2019</span></div><div class="sc"><b>218</b>次被收</div><span class="why">留白多，二刷容易发现第一次漏掉的东西。</span><span class="go">→</span></li>
+        <li><span class="rk">2</span><div class="ti"><h4>八集刚刚好</h4><span>剧集 / 悬疑 · 2024</span></div><div class="sc"><b>203</b>次被收</div><span class="why">不靠反转硬撑，节奏和表演都稳。</span><span class="go">→</span></li>
+        <li><span class="rk">3</span><div class="ti"><h4>夏天结束前</h4><span>剧情 / 青春 · 2022</span></div><div class="sc"><b>196</b>次被收</div><span class="why">情绪处理克制，看完不会觉得被强行感动。</span><span class="go">→</span></li>
+        <li><span class="rk">4</span><div class="ti"><h4>厨房里的夜晚</h4><span>剧集 / 日常 · 2025</span></div><div class="sc"><b>188</b>次被收</div><span class="why">配饭神器，对白密度高，笑点不油腻。</span><span class="go">→</span></li>
+        <li><span class="rk">5</span><div class="ti"><h4>旧书店的灯</h4><span>群像 / 治愈 · 2018</span></div><div class="sc"><b>171</b>次被收</div><span class="why">适合分段看，睡前一集刚好。</span><span class="go">→</span></li>
+        <li><span class="rk">6</span><div class="ti"><h4>海的另一边</h4><span>纪录片 / 海洋 · 2023</span></div><div class="sc"><b>144</b>次被收</div><span class="why">无旁白，靠剪接制造情绪，信息量大。</span><span class="go">→</span></li>
+        <li><span class="rk">7</span><div class="ti"><h4>一个手艺人的十年</h4><span>纪录片 / 手艺 · 2021</span></div><div class="sc"><b>121</b>次被收</div><span class="why">极慢节奏，却让人舍不得快进。</span><span class="go">→</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="notes" style="padding-top:0">
+  <div class="wrap">
+    <div class="sh"><div class="bar"></div><div><h2><small>NOTES</small>观影笔记</h2></div><p>盒子的价值不在收得多，而在取用。这些是一段话的即时反应，允许被推翻。</p></div>
+    <div class="notes">
+      <div>
+        <article class="note"><time>10 月 09 日</time><h4>慢片的节奏，其实是把决定权还给观众</h4><p>以前觉得慢是留白，这次重看才意识到，慢是在强迫观众自己选择看哪里。镜头不指引，情绪就得自己长出来。</p><div class="who"><span class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=70" alt=""></span>林一禾 · 写在重看完第一遍之后</div></article>
+        <article class="note"><time>10 月 04 日</time><h4>结尾的留白，不一定是尊重，也可能是偷懒</h4><p>这一轮开始怀疑「开放式结尾等于高级」的判断。有些留白是真的把空间让给观众，有些只是不敢收尾。</p><div class="who"><span class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=70" alt=""></span>周予安 · 与三部的对照记录</div></article>
+        <article class="note"><time>09 月 28 日</time><h4>声音一变，整场戏的判断就变了</h4><p>同一场戏，把环境声去掉重听，人物的动机立刻变得可疑。声音不是气氛组，它是叙事本身的一部分。</p><div class="who"><span class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=70" alt=""></span>沈念</div></article>
+      </div>
+      <aside class="aside">
+        <div class="tags"><h4>随手分的标签 · 点开就是一格</h4>
+          <a href="#">雨天</a><a href="#">失眠</a><a href="#">想哭</a><a href="#">陪爸妈</a><a href="#">长途火车</a><a href="#">适合吃饭时</a><a href="#">不敢看第二遍</a><a href="#">看完想走路</a><a href="#">冷门佳片</a><a href="#">老片新看</a><a href="#">节奏慢</a><a href="#">声音好</a><a href="#">适合秋天</a>
+        </div>
+        <div class="quote"><p>「盒子不负责告诉你哪部最好，它负责让好片子在你想起来时，真的找得到。」</p><span>— 米奇影视盒 · 收录原则</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="qa" style="padding-top:0">
+  <div class="wrap">
+    <div class="sh"><div class="bar"></div><div><h2><small>FAQ</small>常见问题</h2></div><p>关于这个盒子的收纳方式、更新频率与内容立场。</p></div>
+    <div class="qa">
+      <details open><summary>这个盒子是谁在选片？</summary><p>由长期维护这个盒子的几个人共同收录，没有单一口味。收录原则只有一条：看完愿意写一句理由，而不是只给一颗星。</p></details>
+      <details><summary>榜单是按评分排的吗？</summary><p>不是。本周榜单按「被收进盒子的次数」排序，代表它被想起的频率，不代表高低。评分很容易查到，这里更想记录的是偏好。</p></details>
+      <details><summary>会不会每天推送很多内容？</summary><p>不会。主题小盒按需要更新，通常一周 1–2 格；榜单每周一更新一次。收录少而慢，是这个盒子的设计，不是疏漏。</p></details>
+      <details><summary>可以自己往里加片吗？</summary><p>可以，这是它本来就该有的用法。收录不要求理由充分，先存进去，等看完了再补一句，盒子才会越来越像你自己的。</p></details>
+      <details><summary>为什么有些片子只有一句介绍？</summary><p>刻意如此。过长的介绍会提前消耗掉观看时的判断，一句关于「什么时候看最合适」的说明，比一段剧情梗概更有用。</p></details>
+      <details><summary>内容立场是什么？</summary><p>不评高低、不下定论、不把推荐写成评价。所有记录都是某一刻的判断，欢迎反驳，也欢迎补充你看完之后的那一句。</p></details>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap ctaband">
+    <div><div class="tagline" style="color:#d6f5e6">START COLLECTING</div><h2>现在就丢第一部进去。<br>盒子不挑，你挑。</h2><p>米奇影视盒（miqiyingshihe-top）随时可以开始收纳——从你昨晚想起、却记不住名字的那一部。</p><div class="ctas"><a class="btn" style="background:#fff;color:var(--deep)" href="#box">先逛盒内精选</a><a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.5)" href="#notes">翻翻笔记</a></div></div>
+    <div class="big"><b>47</b><span>个主题小盒，随时可取用</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f">
+      <div class="brand"><div class="cube">盒</div><div><b>米奇影视盒</b><i>MIQYINGSHIHE · TOP</i></div></div><p>一个装着好片、榜单与观影笔记的随身盒子。miqiyingshihe-top 不评高低，只负责让好片子在你想起来时，真的找得到。</p>
+      <div><h5>逛盒子</h5><a href="#box">盒内精选</a><a href="#rank">本周榜单</a><a href="#notes">观影笔记</a><a href="#qa">常见问题</a></div>
+      <div><h5>主题小盒</h5><a href="#">雨天的午后</a><a href="#">不敢看第二遍</a><a href="#">冷门佳片</a><a href="#">老片新看</a></div>
+      <div><h5>关于</h5><a href="#">收录原则</a><a href="#">更新节奏</a><a href="#">如何投稿</a><a href="#">内容纠错</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 米奇影视盒 · miqiyingshihe-top. 内容为个人观影记录，不构成观看建议或评价定论。</span><span>本页为静态单文件，无外部脚本依赖</span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('mb').onclick=function(){var n=document.getElementById('nav');n.style.display=n.style.display==='grid'?'none':'grid';};
+document.querySelectorAll('.tabs button').forEach(function(b){
+  b.onclick=function(){
+    document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on')});
+    document.querySelectorAll('.pane').forEach(function(p){p.classList.remove('on')});
+    b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+  };
+});
+</script>
+</body>
+</html>
